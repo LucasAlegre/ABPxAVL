@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include "abp.h"
 
-pNodoABP* inicializa()
+///Inicializa ABP
+pNodoABP* inicializa_ABP()
 {
     return NULL;
 }
 
-pNodoABP* InsereArvore(pNodoABP *a, tipoinfo ch)
+///Insere um nodo na ABP
+pNodoABP* insere_arvore(pNodoABP *a, tipoinfo ch)
 {
     if (a == NULL)
     {
@@ -18,43 +20,56 @@ pNodoABP* InsereArvore(pNodoABP *a, tipoinfo ch)
         return a;
     }
     else if (ch < a->info)
-        a->esq = InsereArvore(a->esq,ch);
+        a->esq = insere_arvore(a->esq,ch);
     else if (ch > a->info)
-        a->dir = InsereArvore(a->dir,ch);
+        a->dir = insere_arvore(a->dir,ch);
     return a;
 }
 
-void preFixado(pNodoABP *a)
+///Retorna o número de nodos na ABP
+int conta_nodos_ABP(pNodoABP *a)
+{
+    if(a == NULL)
+        return 0;
+    else
+        return (1 + conta_nodos_ABP(a->dir) + conta_nodos_ABP(a->esq));
+}
+
+///Imprime o caminhamento Pré-Fixado à esquerda
+void pre_fixado(pNodoABP *a)
 {
     if (a!= NULL)
     {
         printf("%d\n",a->info);
-        preFixado(a->esq);
-        preFixado(a->dir);
+        pre_fixado(a->esq);
+        pre_fixado(a->dir);
     }
 }
 
-void Central(pNodoABP *a)
+///Imprime o caminhamento Central à esquerda
+void central(pNodoABP *a)
 {
     if (a!= NULL)
     {
-        Central(a->esq);
+        central(a->esq);
         printf("%d\n",a->info);
-        Central(a->dir);
+        central(a->dir);
     }
 }
 
-void posFixado(pNodoABP *a)
+///Imprime o caminhamento Pós-Fixado à esquerda
+void pos_fixado(pNodoABP *a)
 {
     if (a!= NULL)
     {
-        posFixado(a->esq);
-        posFixado(a->dir);
+        pos_fixado(a->esq);
+        pos_fixado(a->dir);
         printf("%d\n",a->info);
     }
 }
 
-pNodoABP* consultaABP(pNodoABP *a, tipoinfo chave)
+///Retorna ponteiro para o nó pesquisado, NULL caso não encontre
+pNodoABP* consulta_ABP(pNodoABP *a, tipoinfo chave)
 {
 
     while (a!=NULL)
@@ -69,7 +84,8 @@ pNodoABP* consultaABP(pNodoABP *a, tipoinfo chave)
     return NULL; //se não achou
 }
 
-pNodoABP* consultaABP2(pNodoABP *a, tipoinfo chave)
+///Retorna ponteiro para o nó pesquisado, NULL caso não encontre(versão com recursão)
+pNodoABP* consulta_ABP2(pNodoABP *a, tipoinfo chave)
 {
     if (a!=NULL)
     {
@@ -77,9 +93,9 @@ pNodoABP* consultaABP2(pNodoABP *a, tipoinfo chave)
         if (a->info == chave)
             return a;
         if (a->info > chave)
-            return consultaABP2(a->esq,chave);
+            return consulta_ABP2(a->esq,chave);
         if (a->info < chave)
-            return consultaABP2(a->dir,chave);
+            return consulta_ABP2(a->dir,chave);
         else
             return a;
 
@@ -88,7 +104,7 @@ pNodoABP* consultaABP2(pNodoABP *a, tipoinfo chave)
 }
 
 ///Dada uma arvore e um valor de nodo, retorna o nivel do nodo na arvore e -1 caso não seja encontrado
-int nivelNo(pNodoABP* arv, tipoinfo chave)
+int nivel_no(pNodoABP* arv, tipoinfo chave)
 {
     if (consultaABP(arv, chave) == NULL)
         return -1;
@@ -96,48 +112,38 @@ int nivelNo(pNodoABP* arv, tipoinfo chave)
     if(arv->info != chave)
     {
         if(arv->info > chave)
-            return nivelNo(arv->esq, chave) + 1;
+            return nivel_no(arv->esq, chave) + 1;
         else
-            return nivelNo(arv->dir, chave) + 1;
+            return nivel_no(arv->dir, chave) + 1;
     }
     else  //é o nodo procurado
         return 1;
 }
 
-int Altura (pNodoABP *a)
+///Retorna a altura da ABP
+int altura_ABP(pNodoABP *a)
 {
-    int Alt_Esq, Alt_Dir;
+    int alt_esq, alt_dir;
     if (a == NULL)
       return 0;
     else
     {
-       Alt_Esq = Altura (a->esq);
-       Alt_Dir = Altura (a->dir);
-       if (Alt_Esq > Alt_Dir)
-         return (1 + Alt_Esq);
+       alt_esq = altura_ABP(a->esq);
+       alt_dir = altura_ABP(a->dir);
+       if (alt_esq > alt_dir)
+         return (1 + alt_esq);
        else
-         return (1 + Alt_Dir);
+         return (1 + alt_dir);
      }
 }
 
-int Calcula_FB(pNodoABP *a)
+///Retorna o fator da ABP
+int calcula_FB_ABP(pNodoABP *a)
 {
-    return (Altura(a->esq) - Altura(a->dir));
+    return (altura_ABP(a->esq) - altura_ABP(a->dir));
 }
 
-int fator(pNodoABP *a, int ch)
-{
-    pNodo a = consultaABP(a, ch);
-
-    if(a != NULL)   //Se o nó está na árvore retorna seu fator
-        return Calcula_FB(a);
-
-    else{
-        printf("No não encontrado\n");
-        return -111;                    //Nó não está na árvore
-    }
-}
-
+///Retorna 1 se a árvore é AVL, 0 caso contrário
 int ehAVL(pNodoABP *a)
 {
     if(abs(Calcula_FB(a)) >= 2)  //Se o fator da ráiz é >=2 ou <= -2, não é AVL
@@ -148,45 +154,36 @@ int ehAVL(pNodoABP *a)
 
 }
 
-int ehARB(pNodoABP *a)
-{
-    if(Altura(a->esq)+1 > (2 * (Altura(a->dir)+1)) || Altura(a->dir)+1 > (2 * (Altura(a->esq)+1)))
-        return 0;
-    else
-        return 1;
-
-}
-
 ///Dada uma arvore e duas chavees, retorna true se houver caminho entre as duas na arvore, e false caso contrário
-bool achaCaminho(pNodoABP* arv, tipoinfo chave1, tipoinfo chave2)
+int acha_caminho(pNodoABP* arv, tipoinfo chave1, tipoinfo chave2)
 {
-    if(consultaABP(arv, chave1) == NULL || consultaABP(arv, chave2) == NULL)
-        return false;
+    if(consulta_ABP(arv, chave1) == NULL || consulta_ABP(arv, chave2) == NULL)
+        return 0;
 
     if(arv->info == chave1)
-        return true;
+        return 1;
 
     if((arv->info > chave1) && (arv->info > chave2))
-        return achaCaminho(arv->esq, chave1, chave2);
+        return acha_caminho(arv->esq, chave1, chave2);
 
     if((arv->info < chave1) && (arv->info < chave2))
-        return achaCaminho(arv->dir, chave1, chave2);
+        return acha_caminho(arv->dir, chave1, chave2);
 
     else
-        return false;
+        return 0;
 
 }
 
 ///Dada duas ABP's, retorna true se forem iguais em forma e conteúdo e false caso contrário
-int arvoresIguais(pNodoABP* arv1, pNodoABP* arv2)
+int arvores_iguais(pNodoABP* arv1, pNodoABP* arv2)
 {
     if ((arv1 == NULL) && (arv2 == NULL))
         return 1;
 
     else if ((arv1 != NULL) && (arv2 != NULL))
         return  ((arv1->info == arv2->info) &&
-                arvoresIguais(arv1->esq, arv2->esq) &&
-                arvoresIguais(arv1->dir, arv2->dir));
+                arvores_iguais(arv1->esq, arv2->esq) &&
+                arvores_iguais(arv1->dir, arv2->dir));
     else
         return 0;
 }

@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1478911231 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	<time.h>
+	"abp.h"
+	"avl.h"
+
+1478912818 c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\abp.h
+
+1478912818 c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\avl.h
+
