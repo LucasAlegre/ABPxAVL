@@ -174,6 +174,76 @@ int acha_caminho(pNodoABP* arv, tipoinfo chave1, tipoinfo chave2)
 
 }
 
+///exclui a raíz, substituindo-a pelo antecessor da árvore
+pNodoABP * raizPorAntecessor(pNodoABP *arv)
+{
+
+    pNodoABP *elo, *busca;
+    busca = NULL;
+    if(arv == NULL) return NULL;
+
+    if(arv->dir == NULL && arv->esq == NULL) free(arv); //caso for folha simplesmente retira
+
+    if (arv->esq == NULL)
+    {
+          busca = arv->dir;//caso não houver antecessor(arvore esquerda vazia) retorna o primeiro da direita
+          free(arv);
+          return busca;
+    }
+    elo = arv; busca = arv->esq;
+    while (busca->dir != NULL)// posiciona busca no antecessor e elo no anterior a este
+    {
+          elo = busca;
+          busca = busca->dir;
+    }
+    if (elo != arv)
+    {
+          elo->dir = busca->esq;// caso exista mais de um nodo entre a raiz e o antecessor,
+          busca->esq = arv->esq;// substitui o nodo a esquerda
+    }
+    busca->dir = arv->dir; // substitui o nodo a direita do antecessor pelo da raiz
+    free (arv);// libera a raiz
+    return busca;
+ }
+
+ ///conulta o nodo anterior ao da chave
+pNodoABP * consultaAnterior(pNodoABP *arv, int chave)
+{
+
+    while (arv!=NULL && arv->dir != NULL && arv->esq != NULL)
+    {
+          if (arv->dir->info == chave || arv->esq->info == chave)
+             return arv; //achou então retorna o ponteiro para o nodo anterior ao da chave
+          else
+          {
+            if (arv->info > chave)
+               arv = arv->esq;
+            else
+               arv = arv->dir;
+          }
+    }
+            return NULL; //se não achou
+}
+
+///remove um novo com magnitude key
+pNodoABP * removeABP(pNodoABP* arv, int key)
+{
+      pNodoABP * elo,  *aux;
+      aux = consultaABP(arv, key);//atribui aux ao nodo que será removido
+
+      if(aux != NULL)
+      {
+          elo = consultaAnterior(arv, key); //atribui elo ao nodo anterior de aux
+
+          if(elo != NULL)
+          {
+          if(elo->info >= key) elo->esq = raizPorAntecessor(aux);//dependendo da relação do módulo de aux e elo
+          else elo->dir = raizPorAntecessor(aux);//coloca a raiz já substituida pela função raizPorAntecessor(Arv *r) e faz as devidas substituições
+          }
+      }
+      return arv;
+}
+
 ///Dada duas ABP's, retorna true se forem iguais em forma e conteúdo e false caso contrário
 int arvores_iguais(pNodoABP* arv1, pNodoABP* arv2)
 {

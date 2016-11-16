@@ -12,6 +12,9 @@ pNodoABP* inicializa_ABP();
 pNodoABP* insere_arvore(pNodoABP *a, tipoinfo ch);
 pNodoABP* consulta_ABP(pNodoABP *a, tipoinfo chave);
 pNodoABP* consulta_ABP2(pNodoABP *a, tipoinfo chave);
+pNodoABP * raizPorAntecessor(pNodoABP *arv);
+pNodoABP * consultaAnterior(pNodoABP *arv, int chave);
+pNodoABP * removeABP(pNodoABP* arv, int key);
 
 int conta_nodos_ABP(pNodoABP *a);
 
