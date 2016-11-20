@@ -248,6 +248,113 @@ pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok)
     return a;
 }
 
+pNodoAVL * minValueNode(pNodoAVL* node)
+{
+   pNodoAVL* current = node;
+
+    /* loop down to find the leftmost leaf */
+    while (current->esq != NULL)
+        current = current->esq;
+
+    return current;
+}
+
+int max(int a, int b)
+{
+    return (a > b)? a : b;
+}
+
+  pNodoAVL * removeNO(pNodoAVL *a, int key)
+{
+    // STEP 1: PERFORM STANDARD BST DELETE
+
+    if (a == NULL)
+        return a;
+
+    // If the key to be deleted is smaller than the
+    // a's key, then it lies in left subtree
+    if ( key < a->key )
+        a->esq = removeNO(a->esq, key);
+
+    // If the key to be deleted is greater than the
+    // a's key, then it lies in right subtree
+    else if( key > a->key )
+        a->dir = removeNO(a->dir, key);
+
+    // if key is same as a's key, then This is
+    // the node to be deleted
+    else
+    {
+        // node with only one child or no child
+        if( (a->esq == NULL) || (a->dir == NULL) )
+        {
+            struct Node *temp = a->esq ? a->esq :
+                                             a->dir;
+
+            // No child case
+            if (temp == NULL)
+            {
+                temp = a;
+                a = NULL;
+            }
+            else // One child case
+             *a = *temp; // Copy the contents of
+                            // the non-empty child
+            free(temp);
+        }
+        else
+        {
+            // node with two children: Get the inorder
+            // successor (smallest in the right subtree)
+            struct Node* temp = minValueNode(a->dir);
+
+            // Copy the inorder successor's data to this node
+            a->key = temp->key;
+
+            // Delete the inorder successor
+            a->dir = removeNO(a->dir, temp->key);
+        }
+    }
+
+    // If the tree had only one node then return
+    if (a == NULL)
+      return a;
+
+    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
+    a->height = 1 + max(height(a->esq),
+                           height(a->dir));
+
+    // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to
+    // check whether this node became unbalanced)
+    int balance = calcula_FB(a);
+
+    // If this node becomes unbalanced, then there are 4 cases
+
+    // Left Left Case
+    if (balance > 1 && calcula_FB(a->esq) >= 0)
+        return rotacao_direita(a);
+
+    // Left Right Case
+    if (balance > 1 && calcula_FB(a->esq) < 0)
+    {
+        a->esq =  rotacao_esquerda(a->esq);
+        return rotacao_direita(a);
+    }
+
+    // Right Right Case
+    if (balance < -1 && calcula_FB(a->dir) <= 0)
+        return rotacao_esquerda(a);
+
+    // Right Left Case
+    if (balance < -1 && calcula_FB(a->dir) > 0)
+    {
+        a->dir = rotacao_direita(a->dir);
+        return rotacao_esquerda(a);
+    }
+
+    return a;
+}
+
 ///Retorna o ponteiro para o nodo procurado, NULL caso não encontrado
 pNodoAVL* consulta_AVL(pNodoAVL *a, TipoInfo chave)
 {
