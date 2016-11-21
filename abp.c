@@ -106,7 +106,7 @@ pNodoABP* consulta_ABP2(pNodoABP *a, tipoinfo chave)
 ///Dada uma arvore e um valor de nodo, retorna o nivel do nodo na arvore e -1 caso não seja encontrado
 int nivel_no(pNodoABP* arv, tipoinfo chave)
 {
-    if (consultaABP(arv, chave) == NULL)
+    if (consulta_ABP(arv, chave) == NULL)
         return -1;
 
     if(arv->info != chave)
@@ -146,7 +146,7 @@ int calcula_FB_ABP(pNodoABP *a)
 ///Retorna 1 se a árvore é AVL, 0 caso contrário
 int ehAVL(pNodoABP *a)
 {
-    if(abs(Calcula_FB(a)) >= 2)  //Se o fator da ráiz é >=2 ou <= -2, não é AVL
+    if(abs(calcula_FB(a)) >= 2)  //Se o fator da ráiz é >=2 ou <= -2, não é AVL
         return 0;
 
     else           //Fator entre -1 e 1 é AVL

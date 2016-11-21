@@ -33,18 +33,12 @@
 		</Compiler>
 		<Unit filename="abp.c">
 			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="abp.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="abp.h" />
 		<Unit filename="avl.c">
 			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="avl.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="avl.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

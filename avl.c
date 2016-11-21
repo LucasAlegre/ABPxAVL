@@ -51,7 +51,7 @@ void desenha(pNodoAVL *a, int nivel)
     {
         for (x=1; x<=nivel; x++)
             printf("=");
-        printf("%d FB= %d\n", a->info, Calcula_FB(a));
+        printf("%d FB= %d\n", a->info, calcula_FB(a));
         if (a->esq != NULL) desenha(a->esq, (nivel+1));
         if (a->dir != NULL) desenha(a->dir, (nivel+1));
     }

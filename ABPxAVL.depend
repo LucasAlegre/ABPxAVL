@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1478911231 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\main.c
+1479509697 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -8,7 +8,19 @@
 	"abp.h"
 	"avl.h"
 
-1478912818 c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\abp.h
+1478913100 c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\abp.h
 
 1478912818 c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\avl.h
+
+1479508553 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\avl.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+	"avl.h"
+
+1479508565 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavl\abp.c
+	<stdio.h>
+	<stdlib.h>
+	"abp.h"
 
