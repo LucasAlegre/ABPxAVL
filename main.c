@@ -3,11 +3,9 @@ UFRGS - INF 01203 – Estruturas de Dados
 Trabalho Final 2016/2
 Comparação do Desempenho de	Árvores Binárias
 ABP X AVL
-
 Alunos:
 Lucas Nunes Alegre
 Guilherme Gomes Haetinger
-
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,6 +32,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     FILE* roteiro;
     FILE* nodos;
 
+    char space;
     char nomeArq[20];
     char operacao;
     char *palavra, linha[1000]; // linhas a serem lidas do arquivo
@@ -47,10 +46,12 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     else
     {
 
-        do{
+        do
+        {
             printf("Executar para ABP ou AVL? (ABP - 1, AVL - 2)\n");
             scanf("%d", &op);
-        }while(op != 1 && op != 2);
+        }
+        while(op != 1 && op != 2);
 
         if(op == 1)  //ABP
         {
@@ -62,55 +63,43 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 return 1;
             }
             printf("******VERSÃO COM ABP*********\n");
-            fscanf(roteiro,"%c",&operacao);
-            operacao = toupper(operacao);
-            switch(operacao)
+            while(fscanf(roteiro,"%c",&operacao) != EOF)
             {
-            case 'I':
-                     fgets(nomeArq,20,roteiro);
-                     nodos = fopen(nomeArq,"r");
-                     if (nodos == NULL) //se n�o conseguiu abrir o arquivo
-                     {
+
+                fscanf(roteiro,"%c", &space);
+                operacao = toupper(operacao);
+                switch(operacao)
+                {
+                case 'I':
+                    fscanf(roteiro,"%s\n",nomeArq);
+                    nodos = fopen(nomeArq,"r");
+                    if (nodos == NULL) //se n�o conseguiu abrir o arquivo
+                    {
                         printf ("Erro ao abrir o arquivo %s", nomeArq);
                         return 1;
-                     }
-                     printf("Inserindo dados do arquivo %s\n", nomeArq);
-                     while(nodos != NULL)
-                     {
-                         fscanf(nodos,"%d",&nodo);
-                         abp = insere_arvore(abp, nodo);
-                     }
+                    }
+                    printf("Inserindo dados do arquivo %s\n", nomeArq);
+                    while(fscanf(nodos,"%d\n",&nodo) != EOF)
+                    {
+                        abp = insere_arvore(abp, nodo);
+                    }
 
-                     break;
-            case 'R':
-                     fgets(nomeArq,20,roteiro);
-                     nodos = fopen(nomeArq,"r");
-                     if (nodos == NULL) //se n�o conseguiu abrir o arquivo
-                     {
-                        printf ("Erro ao abrir o arquivo %s", nomeArq);
-                        return 1;
-                     }
-                     printf("Removendo dados do arquivo %s\n", nomeArq);
+                    break;
+                case 'R':
 
-                     break;
-            case 'C':
-                     fgets(nomeArq,20,roteiro);
-                     nodos = fopen(nomeArq,"r");
-                     if (nodos == NULL) //se n�o conseguiu abrir o arquivo
-                     {
-                        printf ("Erro ao abrir o arquivo %s", nomeArq);
-                        return 1;
-                     }
-                     printf("Consultando dados do arquivo %s\n", nomeArq);
+                    break;
+                case 'C':
 
-                     break;
-            case 'E':
-                     printf("*****ESTATÍSTICAS ABP******\n");
+                    break;
+                case 'E':
+                    printf("*****ESTATÍSTICAS ABP******\n");
+                    break;
+                default:
+                    printf("Operação Inexistente!\n");
 
-                     break;
+                }
+
             }
-
-
         }
     }
 
