@@ -9,10 +9,11 @@ pNodoABP* inicializa_ABP()
 }
 
 ///Insere um nodo na ABP
-pNodoABP* insere_arvore(pNodoABP *a, tipoinfo ch)
+pNodoABP* insere_arvore(pNodoABP *a, tipoinfo ch,unsigned long int *compara)
 {
     if (a == NULL)
     {
+        (*compara)++;
         a =  (pNodoABP*) malloc(sizeof(pNodoABP));
         a->info = ch;
         a->esq = NULL;
@@ -20,9 +21,15 @@ pNodoABP* insere_arvore(pNodoABP *a, tipoinfo ch)
         return a;
     }
     else if (ch < a->info)
-        a->esq = insere_arvore(a->esq,ch);
+    {
+        (*compara)++;
+        a->esq = insere_arvore(a->esq,ch, compara);
+    }
     else if (ch > a->info)
-        a->dir = insere_arvore(a->dir,ch);
+    {
+        (*compara)++;
+        a->dir = insere_arvore(a->dir,ch, compara);
+    }
     return a;
 }
 
@@ -69,15 +76,24 @@ void pos_fixado(pNodoABP *a)
 }
 
 ///Retorna ponteiro para o nó pesquisado, NULL caso não encontre
-pNodoABP* consulta_ABP(pNodoABP *a, tipoinfo chave)
+pNodoABP* consulta_ABP(pNodoABP *a, tipoinfo chave,unsigned long int *compara)
 {
 
     while (a!=NULL)
     {
+
         if (a->info == chave )
+        {
+            (*compara)++;
             return a;     //achou então retorna o ponteiro para o nodo
+        }
+
         if (a->info > chave)
+        {
+            (*compara)++;
             a = a->esq;
+        }
+
         else
             a = a->dir;
     }
@@ -104,17 +120,19 @@ pNodoABP* consulta_ABP2(pNodoABP *a, tipoinfo chave)
 }
 
 ///Dada uma arvore e um valor de nodo, retorna o nivel do nodo na arvore e -1 caso não seja encontrado
-int nivel_no(pNodoABP* arv, tipoinfo chave)
+int nivel_no(pNodoABP* arv, tipoinfo chave,unsigned long int * compara)
 {
-    if (consulta_ABP(arv, chave) == NULL)
+    if (consulta_ABP(arv, chave, compara) == NULL)
         return -1;
 
     if(arv->info != chave)
     {
+        (*compara)++;
+
         if(arv->info > chave)
-            return nivel_no(arv->esq, chave) + 1;
+            return nivel_no(arv->esq, chave, compara) + 1;
         else
-            return nivel_no(arv->dir, chave) + 1;
+            return nivel_no(arv->dir, chave, compara) + 1;
     }
     else  //é o nodo procurado
         return 1;
@@ -143,6 +161,28 @@ int calcula_FB_ABP(pNodoABP *a)
     return (altura_ABP(a->esq) - altura_ABP(a->dir));
 }
 
+///Retorna o maior fator da árvore
+int maior_fator_ABP(pNodoABP* a)
+{
+    int maior_direita, maior_esquerda;
+    int maior;
+
+    if(a == NULL)
+        return 0;
+
+    maior_direita = maior_fator_ABP(a->dir);
+    maior_esquerda = maior_fator_ABP(a->esq);
+    maior = abs(calcula_FB_ABP(a));
+
+    if(maior < maior_direita)
+        maior = maior_direita;
+
+    if(maior < maior_esquerda)
+        maior = maior_esquerda;
+
+    return maior;
+
+}
 ///Retorna 1 se a árvore é AVL, 0 caso contrário
 int ehAVL(pNodoABP *a)
 {
@@ -154,24 +194,72 @@ int ehAVL(pNodoABP *a)
 
 }
 
-///Dada uma arvore e duas chavees, retorna true se houver caminho entre as duas na arvore, e false caso contrário
-int acha_caminho(pNodoABP* arv, tipoinfo chave1, tipoinfo chave2)
+
+pNodoABP * maior_no(pNodoABP* node)
 {
-    if(consulta_ABP(arv, chave1) == NULL || consulta_ABP(arv, chave2) == NULL)
-        return 0;
+   pNodoABP* current = node;
 
-    if(arv->info == chave1)
-        return 1;
+    /* loop down to find the leftmost leaf */
+    while (current->dir != NULL)
+        current = current->dir;
 
-    if((arv->info > chave1) && (arv->info > chave2))
-        return acha_caminho(arv->esq, chave1, chave2);
-
-    if((arv->info < chave1) && (arv->info < chave2))
-        return acha_caminho(arv->dir, chave1, chave2);
-
+    return current;
+}
+/* Given a binary search tree and a key, this function deletes the key
+   and returns the new root */
+pNodoABP* deleteNode(pNodoABP* root, int key,unsigned long int * compara)
+{
+    // base case
+    if (root == NULL)
+    {
+        return root;
+        (*compara)++;
+    }
+    // If the key to be deleted is smaller than the root's key,
+    // then it lies in left subtree
+    if (key < root->info)
+    {
+        root->esq = deleteNode(root->esq, key, compara);
+        (*compara)++;
+    }
+    // If the key to be deleted is greater than the root's key,
+    // then it lies in right subtree
+    else if (key > root->info)
+    {
+        root->dir = deleteNode(root->dir, key, compara);
+        (*compara)++;
+    }
+    // if key is same as root's key, then This is the node
+    // to be deleted
     else
-        return 0;
+    {
+        // node with only one child or no child
+        if (root->esq == NULL)
+        {
+            (*compara)++;
+            pNodoABP *temp = root->dir;
+            free(root);
+            return temp;
+        }
+        else if (root->dir == NULL)
+        {
+            (*compara)++;
+            pNodoABP *temp = root->esq;
+            free(root);
+            return temp;
+        }
 
+        // node with two children: Get the inorder successor (smallest
+        // in the right subtree)
+        pNodoABP* temp = maior_no(root->esq);
+
+        // Copy the inorder successor's content to this node
+        root->info = temp->info;
+
+        // Delete the inorder successor
+        root->esq = deleteNode(root->esq, temp->info, compara);
+    }
+    return root;
 }
 
 ///Dada duas ABP's, retorna true se forem iguais em forma e conteúdo e false caso contrário
