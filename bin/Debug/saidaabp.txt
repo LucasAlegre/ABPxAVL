@@ -1,0 +1,109 @@
+**********VERSÃO COM ABP**********
+Inserindo dados do arquivo n100.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 0 ms
+Nodos: 100
+Altura: 17
+Fator: 10
+Comparacoes: 799
+Rotações: 0
+---------------------------------------
+Removendo dados do arquivo n100.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 0 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 643
+Rotações: 0
+---------------------------------------
+Inserindo dados do arquivo n100sorted.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 0 ms
+Nodos: 100
+Altura: 100
+Fator: 99
+Comparacoes: 5050
+Rotações: 0
+---------------------------------------
+Removendo dados do arquivo n100sorted.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 0 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 100
+Rotações: 0
+---------------------------------------
+Inserindo dados do arquivo n1000.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 0 ms
+Nodos: 1000
+Altura: 22
+Fator: 14
+Comparacoes: 11301
+Rotações: 0
+---------------------------------------
+Removendo dados do arquivo n1000.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 0 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 9396
+Rotações: 0
+---------------------------------------
+Inserindo dados do arquivo n1000sorted.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 5 ms
+Nodos: 1000
+Altura: 1000
+Fator: 999
+Comparacoes: 500500
+Rotações: 0
+---------------------------------------
+Removendo dados do arquivo n1000sorted.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 0 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 1000
+Rotações: 0
+---------------------------------------
+Inserindo dados do arquivo n10000.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 3 ms
+Nodos: 10000
+Altura: 31
+Fator: 17
+Comparacoes: 163375
+Rotações: 0
+---------------------------------------
+Removendo dados do arquivo n10000.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 2 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 145757
+Rotações: 0
+---------------------------------------
+Inserindo dados do arquivo n10000sorted.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 497 ms
+Nodos: 10000
+Altura: 10000
+Fator: 9999
+Comparacoes: 50005000
+Rotações: 0
+---------------------------------------
+Removendo dados do arquivo n10000sorted.txt
+**********ESTATÍSTICAS ABP**********
+Tempo: 0 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 10000
+Rotações: 0
+---------------------------------------

@@ -75,3 +75,37 @@
 	"abp.h"
 	"avl.h"
 
+1479782352 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavlfinal\abp.c
+	<stdio.h>
+	<stdlib.h>
+	"abp.h"
+
+1479784634 c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavlfinal\abp.h
+
+1479739122 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavlfinal\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	<time.h>
+	"abp.h"
+	"avl.h"
+
+1479784634 c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavlfinal\avl.h
+
+1479777614 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavlfinal\avl.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+	"avl.h"
+
+1479783407 source:c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavlfinal\arquivos.c
+	<stdio.h>
+	<time.h>
+	"arquivos.h"
+	"abp.h"
+	"avl.h"
+
+1479781962 c:\users\lucas alegre\desktop\ufrgs\2º semestre\estrutura de dados\abpxavlfinal\arquivos.h
+

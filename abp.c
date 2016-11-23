@@ -9,11 +9,11 @@ pNodoABP* inicializa_ABP()
 }
 
 ///Insere um nodo na ABP
-pNodoABP* insere_arvore(pNodoABP *a, tipoinfo ch,unsigned long int *compara)
+pNodoABP* insere_arvore(pNodoABP *a, tipoinfo ch, unsigned long int *compara)
 {
+    (*compara)++;
     if (a == NULL)
     {
-        (*compara)++;
         a =  (pNodoABP*) malloc(sizeof(pNodoABP));
         a->info = ch;
         a->esq = NULL;
@@ -22,12 +22,10 @@ pNodoABP* insere_arvore(pNodoABP *a, tipoinfo ch,unsigned long int *compara)
     }
     else if (ch < a->info)
     {
-        (*compara)++;
         a->esq = insere_arvore(a->esq,ch, compara);
     }
     else if (ch > a->info)
     {
-        (*compara)++;
         a->dir = insere_arvore(a->dir,ch, compara);
     }
     return a;
@@ -81,16 +79,14 @@ pNodoABP* consulta_ABP(pNodoABP *a, tipoinfo chave,unsigned long int *compara)
 
     while (a!=NULL)
     {
-
+        (*compara)++;
         if (a->info == chave )
         {
-            (*compara)++;
             return a;     //achou então retorna o ponteiro para o nodo
         }
 
         if (a->info > chave)
         {
-            (*compara)++;
             a = a->esq;
         }
 
@@ -101,17 +97,17 @@ pNodoABP* consulta_ABP(pNodoABP *a, tipoinfo chave,unsigned long int *compara)
 }
 
 ///Retorna ponteiro para o nó pesquisado, NULL caso não encontre(versão com recursão)
-pNodoABP* consulta_ABP2(pNodoABP *a, tipoinfo chave)
+pNodoABP* consulta_ABP2(pNodoABP *a, tipoinfo chave, unsigned long int* compara)
 {
     if (a!=NULL)
     {
-
+        (*compara)++;
         if (a->info == chave)
             return a;
         if (a->info > chave)
-            return consulta_ABP2(a->esq,chave);
+            return consulta_ABP2(a->esq,chave, compara);
         if (a->info < chave)
-            return consulta_ABP2(a->dir,chave);
+            return consulta_ABP2(a->dir,chave, compara);
         else
             return a;
 
@@ -209,25 +205,24 @@ pNodoABP * maior_no(pNodoABP* node)
    and returns the new root */
 pNodoABP* deleteNode(pNodoABP* root, int key,unsigned long int * compara)
 {
+    (*compara)++;
+
     // base case
     if (root == NULL)
     {
         return root;
-        (*compara)++;
     }
     // If the key to be deleted is smaller than the root's key,
     // then it lies in left subtree
     if (key < root->info)
     {
         root->esq = deleteNode(root->esq, key, compara);
-        (*compara)++;
     }
     // If the key to be deleted is greater than the root's key,
     // then it lies in right subtree
     else if (key > root->info)
     {
         root->dir = deleteNode(root->dir, key, compara);
-        (*compara)++;
     }
     // if key is same as root's key, then This is the node
     // to be deleted
@@ -236,14 +231,12 @@ pNodoABP* deleteNode(pNodoABP* root, int key,unsigned long int * compara)
         // node with only one child or no child
         if (root->esq == NULL)
         {
-            (*compara)++;
             pNodoABP *temp = root->dir;
             free(root);
             return temp;
         }
         else if (root->dir == NULL)
         {
-            (*compara)++;
             pNodoABP *temp = root->esq;
             free(root);
             return temp;

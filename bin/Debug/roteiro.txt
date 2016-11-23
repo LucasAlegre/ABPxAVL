@@ -1,6 +1,24 @@
+I n100.txt
+E
+R n100.txt
+E
+I n100sorted.txt
+E
+R n100sorted.txt
+E
 I n1000.txt
 E
-C n1000.txt
-E
 R n1000.txt
+E
+I n1000sorted.txt
+E
+R n1000sorted.txt
+E
+I n10000.txt
+E
+R n10000.txt
+E
+I n10000sorted.txt
+E
+R n10000sorted.txt
 E

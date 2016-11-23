@@ -1,0 +1,109 @@
+**********VERSÃO COM AVL**********
+Inserindo dados do arquivo n100.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 0 ms
+Nodos: 100
+Altura: 8
+Fator: 1
+Comparacoes: 640
+Rotações: 74
+---------------------------------------
+Removendo dados do arquivo n100.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 0 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 533
+Rotações: 39
+---------------------------------------
+Inserindo dados do arquivo n100sorted.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 0 ms
+Nodos: 100
+Altura: 7
+Fator: 0
+Comparacoes: 673
+Rotações: 93
+---------------------------------------
+Removendo dados do arquivo n100sorted.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 0 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 449
+Rotações: 44
+---------------------------------------
+Inserindo dados do arquivo n1000.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 0 ms
+Nodos: 1000
+Altura: 12
+Fator: 1
+Comparacoes: 9647
+Rotações: 689
+---------------------------------------
+Removendo dados do arquivo n1000.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 8 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 8555
+Rotações: 370
+---------------------------------------
+Inserindo dados do arquivo n1000sorted.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 0 ms
+Nodos: 1000
+Altura: 10
+Fator: 0
+Comparacoes: 9977
+Rotações: 990
+---------------------------------------
+Removendo dados do arquivo n1000sorted.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 6 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 6806
+Rotações: 491
+---------------------------------------
+Inserindo dados do arquivo n10000.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 3 ms
+Nodos: 10000
+Altura: 16
+Fator: 1
+Comparacoes: 130955
+Rotações: 7019
+---------------------------------------
+Removendo dados do arquivo n10000.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 1176 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 119763
+Rotações: 3860
+---------------------------------------
+Inserindo dados do arquivo n10000sorted.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 1 ms
+Nodos: 10000
+Altura: 14
+Fator: 0
+Comparacoes: 133617
+Rotações: 9986
+---------------------------------------
+Removendo dados do arquivo n10000sorted.txt
+**********ESTATÍSTICAS AVL**********
+Tempo: 564 ms
+Nodos: 0
+Altura: 0
+Fator: 0
+Comparacoes: 92566
+Rotações: 4988
+---------------------------------------

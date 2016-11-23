@@ -53,7 +53,7 @@ int maior_fator_AVL(pNodoAVL* a)
 
     maior_direita = maior_fator_AVL(a->dir);
     maior_esquerda = maior_fator_AVL(a->esq);
-    maior = a->FB;
+    maior = abs(a->FB);
 
     if(maior < maior_direita)
         maior = maior_direita;
@@ -136,6 +136,7 @@ pNodoAVL* rotacao_dupla_direita (pNodoAVL* pt, int *rotacoes)
     ptv->esq = ptu;
     pt->esq = ptv->dir;
     ptv->dir = pt;
+
     if (ptv->FB == 1)
         pt->FB = -1;
     else
@@ -206,11 +207,11 @@ pNodoAVL* caso2 (pNodoAVL *a, int *ok, int *rotacoes)
     ptu = a->dir;
     if (ptu->FB == -1)
     {
-        a=rotacao_esquerda(a,rotacoes);
+        a = rotacao_esquerda(a,rotacoes);
     }
     else
     {
-        a=rotacao_dupla_esquerda(a,rotacoes);
+        a = rotacao_dupla_esquerda(a,rotacoes);
     }
     a->FB = 0;
     *ok = 0;
@@ -219,10 +220,11 @@ pNodoAVL* caso2 (pNodoAVL *a, int *ok, int *rotacoes)
 }
 
 ///Insere o nodo na AVL
-pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok,unsigned long int *compara, int* rotacoes)
+pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok , unsigned long int *comparacoes, int* rotacoes)
 {
     /* Insere nodo em uma árvore AVL, onde A representa a raiz da árvore,
       x, a chave a ser inserida e h a altura da árvore */
+    (*comparacoes)++;
 
     if (a == NULL)
     {
@@ -235,7 +237,7 @@ pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok,unsigned long int *compara
     }
     else if (x < a->info)
     {
-        a->esq = insere_AVL(a->esq,x,ok, compara,rotacoes);
+        a->esq = insere_AVL(a->esq, x, ok, comparacoes, rotacoes);
         if (*ok)
         {
             switch (a->FB)
@@ -255,7 +257,7 @@ pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok,unsigned long int *compara
     }
     else
     {
-        a->dir = insere_AVL(a->dir,x,ok,compara,rotacoes);
+        a->dir = insere_AVL(a->dir,x,ok,comparacoes,rotacoes);
         if (*ok)
         {
             switch (a->FB)
@@ -273,127 +275,82 @@ pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok,unsigned long int *compara
             }
         }
     }
+
     return a;
 }
 
-pNodoAVL * maior_noAVL(pNodoAVL* node)
+///Retorna o maior no da AVL
+pNodoAVL* maior_no_AVL(pNodoAVL* a)
 {
-    pNodoAVL* current = node;
+    pNodoAVL* aux = a;
 
     /* loop down to find the leftmost leaf */
-    while (current->dir != NULL)
-        current = current->dir;
+    while (aux->dir != NULL)
+        aux = aux->dir;
 
-    return current;
+    return aux;
 }
 
-int max(int a, int b)
-{
-    return (a > b)? a : b;
-}
 
-pNodoAVL* removeNO(pNodoAVL *a, int key,unsigned long int* compara,int* rotacoes)
+pNodoAVL* remove_no(pNodoAVL *a, int key, unsigned long int* comparacoes ,int* rotacoes)
 {
-    // STEP 1: PERFORM STANDARD BST DELETE
+    pNodoAVL *temp;
+
+    (*comparacoes)++;
 
     if (a == NULL)
     {
-        (*compara)++;
         return a;
     }
 
-    // If the key to be deleted is smaller than the
-    // a's key, then it lies in left subtree
     if ( key < a->info )
     {
-        (*compara)++;
-        a->esq = removeNO(a->esq, key, compara,rotacoes);
+        a->esq = remove_no(a->esq, key, comparacoes,rotacoes);
     }
 
-    // If the key to be deleted is greater than the
-    // a's key, then it lies in right subtree
     else if( key > a->info )
     {
-        a->dir = removeNO(a->dir, key, compara,rotacoes);
-        (*compara)++;
+        a->dir = remove_no(a->dir, key, comparacoes,rotacoes);
     }
 
-    // if key is same as a's key, then This is
-    // the node to be deleted
     else
     {
-        // node with only one child or no child
+
         if( (a->esq == NULL) || (a->dir == NULL) )
         {
-            pNodoAVL *temp = a->esq ? a->esq :
-                             a->dir;
+            if(a->esq == NULL)
+                temp = a->dir;
+            else
+                temp = a->esq;
 
-            // No child case
             if (temp == NULL)
             {
                 temp = a;
                 a = NULL;
+                free(temp);
             }
-            else // One child case
-                *a = *temp; // Copy the contents of
-            // the non-empty child
-            free(temp);
+            else
+            {
+                free(a);
+                a = temp;
+            }
+
         }
         else
         {
-            // node with two children: Get the inorder
-            // successor (smallest in the right subtree)
-            pNodoAVL* temp = maior_noAVL(a->esq);
-
-            // Copy the inorder successor's data to this node
+            temp = maior_no_AVL(a->esq);
             a->info = temp->info;
-
-            // Delete the inorder successor
-            a->esq = removeNO(a->esq, temp->info, compara,rotacoes);
+            a->esq = remove_no(a->esq, temp->info, comparacoes, rotacoes);
         }
     }
 
-    // If the tree had only one node then return
     if (a == NULL)
         return a;
 
-
-    // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to
-    // check whether this node became unbalanced)
-    int balance = calcula_FB(a);
-
-    // If this node becomes unbalanced, then there are 4 cases
-
-
-
-        // Left Left Case
-    if (balance > 1 && calcula_FB(a->esq) >= 0)
-        return rotacao_direita(a, rotacoes);
-
-    // Left Right Case
-    if (balance > 1 && calcula_FB(a->esq) < 0)
-    {
-        a->esq =  rotacao_esquerda(a->esq,rotacoes);
-        return rotacao_direita(a,rotacoes);
-    }
-
-    // Right Right Case
-    if (balance < -1 && calcula_FB(a->dir) <= 0)
-        return rotacao_esquerda(a, rotacoes);
-
-    // Right Left Case
-    if (balance < -1 && calcula_FB(a->dir) > 0)
-    {
-        a->dir = rotacao_direita(a->dir,rotacoes);
-        return rotacao_esquerda(a,rotacoes);
-    }
-
-
-
-/*
+    a->FB = calcula_FB(a);
 
     // Left Left Case
-    if(a->esq != NULL && balance > 1)
+    if(a->esq != NULL && a->FB > 1)
     {
         if (a->esq->FB >= 0)
             return rotacao_direita(a,rotacoes);
@@ -405,10 +362,10 @@ pNodoAVL* removeNO(pNodoAVL *a, int key,unsigned long int* compara,int* rotacoes
             return rotacao_direita(a,rotacoes);
         }
     }
-    else if(balance > 1)
+    else if(a->FB > 1)
         return rotacao_direita(a, rotacoes);
 
-    else if(a->dir != NULL && balance < -1)
+    else if(a->dir != NULL && a->FB < -1)
     {
         // Right Right Case
         if (a->dir->FB <= 0)
@@ -422,22 +379,25 @@ pNodoAVL* removeNO(pNodoAVL *a, int key,unsigned long int* compara,int* rotacoes
         }
 
     }
-    else if(balance < -1)
+    else if(a->FB < -1)
         return rotacao_esquerda(a,rotacoes);
-*/
-    else
-        return a;
+
+    return a;
 }
 
 ///Retorna o ponteiro para o nodo procurado, NULL caso não encontrado
-pNodoAVL* consulta_AVL(pNodoAVL *a, TipoInfo chave,unsigned long int* compara)
+pNodoAVL* consulta_AVL(pNodoAVL *a, TipoInfo chave, unsigned long int* comparacoes)
 {
 
-    while (a!=NULL)
+    while (a != NULL)
     {
-        (*compara)++;
+        (*comparacoes)++;
+
         if (a->info == chave )
+        {
             return a;     //achou então retorna o ponteiro para o nodo
+        }
+
         if (a->info > chave)
             a = a->esq;
         else
