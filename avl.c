@@ -95,7 +95,7 @@ int is_AVL(pNodoAVL *a)
         return 1;
 }
 
-
+///Rotação direita
 pNodoAVL* rotacao_direita(pNodoAVL *pt, int *rotacoes)
 {
     pNodoAVL* ptu;
@@ -111,6 +111,7 @@ pNodoAVL* rotacao_direita(pNodoAVL *pt, int *rotacoes)
     return pt;
 }
 
+///Rotação esquerda
 pNodoAVL* rotacao_esquerda(pNodoAVL *pt, int *rotacoes)
 {
     pNodoAVL* ptu;
@@ -126,6 +127,7 @@ pNodoAVL* rotacao_esquerda(pNodoAVL *pt, int *rotacoes)
     return pt;
 }
 
+///Rotação dupla direita
 pNodoAVL* rotacao_dupla_direita (pNodoAVL* pt, int *rotacoes)
 {
     pNodoAVL* ptu, *ptv;
@@ -153,6 +155,7 @@ pNodoAVL* rotacao_dupla_direita (pNodoAVL* pt, int *rotacoes)
     return pt;
 }
 
+///Rotação dupla esquerda
 pNodoAVL* rotacao_dupla_esquerda (pNodoAVL* pt, int *rotacoes)
 {
     pNodoAVL *ptu, *ptv;
@@ -291,7 +294,7 @@ pNodoAVL* maior_no_AVL(pNodoAVL* a)
     return aux;
 }
 
-
+///Remoção de um nodo na AVL
 pNodoAVL* remove_no(pNodoAVL *a, int key, unsigned long int* comparacoes ,int* rotacoes)
 {
     pNodoAVL *temp;
@@ -358,7 +361,7 @@ pNodoAVL* remove_no(pNodoAVL *a, int key, unsigned long int* comparacoes ,int* r
         // Left Right Case
         if (a->esq->FB < 0)
         {
-            a->esq =  rotacao_esquerda(a->esq,rotacoes);
+            a->esq = rotacao_esquerda(a->esq, rotacoes);
             return rotacao_direita(a,rotacoes);
         }
     }

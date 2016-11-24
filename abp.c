@@ -190,7 +190,7 @@ int ehAVL(pNodoABP *a)
 
 }
 
-
+///Retorna o maior nó da ABP
 pNodoABP * maior_no(pNodoABP* node)
 {
    pNodoABP* current = node;
@@ -201,6 +201,7 @@ pNodoABP * maior_no(pNodoABP* node)
 
     return current;
 }
+
 /* Given a binary search tree and a key, this function deletes the key
    and returns the new root */
 pNodoABP* deleteNode(pNodoABP* root, int key,unsigned long int * compara)
