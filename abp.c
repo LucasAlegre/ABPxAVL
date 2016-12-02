@@ -202,9 +202,14 @@ pNodoABP * maior_no(pNodoABP* node)
     return current;
 }
 
-/* Given a binary search tree and a key, this function deletes the key
-   and returns the new root */
-pNodoABP* deleteNode(pNodoABP* root, int key,unsigned long int * compara)
+
+/*
+   Given a binary search tree and a key, this function deletes the key
+   and returns the new root
+   Algoritmo adaptado de:
+   http://quiz.geeksforgeeks.org/binary-search-tree-set-2-delete/
+*/
+pNodoABP* deleteNode(pNodoABP* root, int key, unsigned long int * compara)
 {
     (*compara)++;
 
@@ -243,14 +248,11 @@ pNodoABP* deleteNode(pNodoABP* root, int key,unsigned long int * compara)
             return temp;
         }
 
-        // node with two children: Get the inorder successor (smallest
-        // in the right subtree)
-        pNodoABP* temp = maior_no(root->esq);
 
-        // Copy the inorder successor's content to this node
-        root->info = temp->info;
+        pNodoABP* temp = maior_no(root->esq); //maior no da subarvore esquerda
 
-        // Delete the inorder successor
+        root->info = temp->info;  //vira raiz
+
         root->esq = deleteNode(root->esq, temp->info, compara);
     }
     return root;

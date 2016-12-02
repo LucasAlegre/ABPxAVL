@@ -5,5 +5,4 @@ int le_opcao();
 int processa_ABP(FILE* roteiro, FILE* saida);
 int processa_AVL(FILE* roteiro, FILE* saida);
 
-
 #endif // ARQUIVOS_H_INCLUDED

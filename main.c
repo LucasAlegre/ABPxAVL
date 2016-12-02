@@ -7,6 +7,7 @@ Alunos:
 Lucas Nunes Alegre
 Guilherme Gomes Haetinger
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -52,12 +53,12 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
         if(op == 1)
         {
-            if(processa_ABP(roteiro, saida))
+            if(processa_ABP(roteiro, saida) == 1)
                 printf("ERROR\n");
         }
         else if(op == 2)
         {
-            if(processa_AVL(roteiro, saida))
+            if(processa_AVL(roteiro, saida) == 1)
                 printf("ERROR\n");
         }
 

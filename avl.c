@@ -287,7 +287,6 @@ pNodoAVL* maior_no_AVL(pNodoAVL* a)
 {
     pNodoAVL* aux = a;
 
-    /* loop down to find the leftmost leaf */
     while (aux->dir != NULL)
         aux = aux->dir;
 
