@@ -229,7 +229,7 @@ pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok , unsigned long int *compa
       x, a chave a ser inserida e h a altura da árvore */
     (*comparacoes)++;
 
-    if (a == NULL)
+    if (a == NULL)   //Chegou no fim da árvore, insere o nodo
     {
         a = (pNodoAVL*) malloc(sizeof(pNodoAVL));
         a->info = x;
@@ -243,7 +243,7 @@ pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok , unsigned long int *compa
         a->esq = insere_AVL(a->esq, x, ok, comparacoes, rotacoes);
         if (*ok)
         {
-            switch (a->FB)
+            switch (a->FB)     //Testa o fator para poder alterá-lo de acordo com cada caso
             {
             case -1:
                 a->FB = 0;
@@ -263,7 +263,7 @@ pNodoAVL* insere_AVL(pNodoAVL *a, TipoInfo x, int *ok , unsigned long int *compa
         a->dir = insere_AVL(a->dir,x,ok,comparacoes,rotacoes);
         if (*ok)
         {
-            switch (a->FB)
+            switch (a->FB)      //Testa o fator para poder alterá-lo de acordo com cada caso
             {
             case  1:
                 a->FB = 0;
@@ -300,22 +300,22 @@ pNodoAVL* remove_no(pNodoAVL *a, int key, unsigned long int* comparacoes ,int* r
 
     (*comparacoes)++;
 
-    if (a == NULL)
+    if (a == NULL)  //Chegou no fim, retorna NULL
     {
         return a;
     }
 
-    if ( key < a->info )
+    if ( key < a->info )   //Nó a ser removido está a esquerda
     {
         a->esq = remove_no(a->esq, key, comparacoes,rotacoes);
     }
 
-    else if( key > a->info )
+    else if( key > a->info )   //Nó a ser removido está a esquerda
     {
         a->dir = remove_no(a->dir, key, comparacoes,rotacoes);
     }
 
-    else
+    else   //É o nó a ser removido
     {
 
         if( (a->esq == NULL) || (a->dir == NULL) )
@@ -325,20 +325,21 @@ pNodoAVL* remove_no(pNodoAVL *a, int key, unsigned long int* comparacoes ,int* r
             else
                 temp = a->esq;
 
-            if (temp == NULL)
+            if (temp == NULL)  //Se o nó a ser removido não tem filhos, o remove
             {
                 temp = a;
                 a = NULL;
                 free(temp);
             }
-            else
+            else             //Se um dos filhos não é NULL, remove o nodo e retorna o filho
             {
                 free(a);
                 a = temp;
+                return a;
             }
 
         }
-        else
+        else   //Se o nodo possui dois filhos, remove e troca pelo maior da subarvore esquerda
         {
             temp = maior_no_AVL(a->esq);
             a->info = temp->info;

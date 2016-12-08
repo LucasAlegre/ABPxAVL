@@ -1,3 +1,5 @@
+#ifndef ABP_H
+#define ABP_H
 typedef int tipoinfo;
 
 struct TNodoABP{
@@ -26,4 +28,6 @@ int nivel_no(pNodoABP * arv, int valor,unsigned long int * compara);
 int arvores_iguais(pNodoABP* arv1, pNodoABP* arv2);
 int calcula_FB_ABP(pNodoABP *a);
 int eh_AVL(pNodoABP *a);
+
+#endif
 

@@ -195,7 +195,6 @@ pNodoABP * maior_no(pNodoABP* node)
 {
    pNodoABP* current = node;
 
-    /* loop down to find the leftmost leaf */
     while (current->dir != NULL)
         current = current->dir;
 

@@ -26,7 +26,7 @@ int processa_ABP(FILE* roteiro, FILE* saida)
     pNodoABP* abp = inicializa_ABP();
     pNodoABP* abpAux = inicializa_ABP();
 
-    clock_t start, end, elapsed=0; //para contar o tempo DOUBLE
+    clock_t start, end, elapsed=0;
     unsigned long int comparacoes = 0;
 
     char space;
@@ -37,28 +37,28 @@ int processa_ABP(FILE* roteiro, FILE* saida)
     int nodo;
 
     fprintf(saida,"**********VERSÃO COM ABP**********\n");
-    while(fscanf(roteiro,"%c",&operacao) != EOF)
+    while(fscanf(roteiro,"%c",&operacao) != EOF)  //Le operação a ser realizada até terminar o arquivo
     {
 
-        fscanf(roteiro,"%c", &space);
-        operacao = toupper(operacao);
+        fscanf(roteiro,"%c", &space);        //Le espaço em branco
+        operacao = toupper(operacao);        //Passa para maiúsculo a opção
         switch(operacao)
         {
         case 'I':
-            fscanf(roteiro,"%s\n",nome_arq);
+            fscanf(roteiro,"%s\n",nome_arq);    //Le nome do arquivo que contem os nodos e o abre
             nodos = fopen(nome_arq,"r");
-            if (nodos == NULL) //se n�o conseguiu abrir o arquivo
+            if (nodos == NULL) //se não conseguiu abrir o arquivo
             {
                 fprintf (saida,"Erro ao abrir o arquivo %s", nome_arq);
                 return 1;
             }
             fprintf(saida, "Inserindo dados do arquivo %s\n", nome_arq);
-            while(fscanf(nodos,"%d\n",&nodo) != EOF)
+            while(fscanf(nodos,"%d\n",&nodo) != EOF)       //Realiza operação para cada nodo do arquivo
             {
-                start = clock();
+                start = clock();                         //Inicia contagem de tempo
                 abp = insere_arvore(abp, nodo, &comparacoes);
-                end = clock();
-                elapsed += (end - start)*1000/CLOCKS_PER_SEC;
+                end = clock();                           //Finaliza contagem de tempo
+                elapsed += (end - start)*1000/CLOCKS_PER_SEC;  //Incrementa o tempo passado
             }
 
             break;
